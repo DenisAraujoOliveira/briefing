@@ -1,0 +1,26 @@
+<div class="group" [formGroup]="campanha">
+    <input  formControlName="nome_campanha" name="nome_campanha" type="text">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Digite o nome da campanha</label>
+    <div *ngIf = "campanha.controls['nome_campanha'].hasError('minlength') || campanha.controls['nome_campanha'].hasError('required')">
+        <legend>Insira um nome com ao menos 5 caracteres</legend>
+    </div>
+    <div *ngIf = "campanha.controls['nome_campanha'].hasError('maxlength')">
+        <legend>Máximo de caracteres permitidos 30 caracteres</legend>
+    </div>            
+</div>
+<div class="group-dates clearfix" [formGroup]="campanha">
+    <div class="group-date ">
+        <label class="label-date">Data de inicio da campanha</label>
+        <dp-date-picker class="input" theme="dp-material" format="DD/MM/YYYY" formControlName="comeco_campanha" [config]="config" (onChange)="dataEntrega()"></dp-date-picker >
+        <div *ngIf = "campanha.controls['comeco_campanha'].hasError('required')">
+        <legend>Insira uma data de inicio</legend>
+        </div>            
+    </div>
+    <div class="group-date clearfix" [formGroup]="campanha">
+        <label class="label-date">Data final da campanha</label>
+        <dp-date-picker *ngIf="campanha.controls.comeco_campanha.valid" class="input" theme="dp-material"  format="DD/MM/YYYY" formControlName="final_campanha" [config]="config2"></dp-date-picker>
+    </div>            
+</div>
+  

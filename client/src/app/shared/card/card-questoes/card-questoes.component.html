@@ -1,0 +1,27 @@
+<div #q class="quadro animated">
+    <ng-content select="[question]"></ng-content>
+    <span cardQuestao></span>
+    <h2 class="fechar" fecharCard>X</h2>
+    <div class="group">
+        <ng-content select="[input]"></ng-content>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <ng-content select="[label]"></ng-content>
+    </div>
+    <div class="group">
+        <ng-content select="[input2]"></ng-content>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <ng-content select="[label2]"></ng-content>
+    </div>
+    <div class="group">
+        <ng-content select="[input3]"></ng-content>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <ng-content select="[label3]"></ng-content>
+    </div>
+    <ng-content select="[success]"></ng-content>
+    <!-- <h1 class="success" *ngIf="form.controls.objetivo.valid">Preenchido</h1> -->
+    <h1 class="ok msgm" fecharCard>Ok</h1>
+  </div>
+  

@@ -1,0 +1,135 @@
+<briefing class="hide" *ngIf = "campanha" [agencyBrief]="reBrief" [campanha]="campanha" (abrirBriefing)="abrirCBrief($event)">
+</briefing>
+<form [formGroup]="form" (submit)="gravar($event)" novalidate>
+  <section class="step animated clearfix">
+    <h1 class="msgm" *ngIf="form.controls.responsavel.valid">Bem vindo, <span>{{form.controls.responsavel.value}}</span></h1><br><br>
+    <input-text>
+      <input input formControlName="responsavel"  name="responsavel" type="text">
+      <label label>Digite o seu nome</label>
+      <div min *ngIf = "form.controls['responsavel'].hasError('minlength') || form.controls['responsavel'].hasError('required')">
+        <legend>Insira um nome com ao menos 5 caracteres</legend>
+      </div> 
+      <div max *ngIf = "form.controls['responsavel'].hasError('maxlength')">
+        <legend>Máximo de caracteres permitidos 30 caracteres</legend>
+      </div> 
+    </input-text>
+    <btn-avancar avancar></btn-avancar>
+    <!-- <btn-avancar *ngIf ="form.controls.responsavel.valid" avancar></btn-avancar> -->
+</section>
+<section class="step animated clearfix hide">
+  <input-text *ngIf = "!campanha">
+    <input input [(ngModel)]="reBrief.agencyBrief_id" formControlName="agencyBrief_id"  name="agencyBrief_id" type="text">
+    <label label>Cole o ID do Brief da agência</label>
+  </input-text>    
+  <div class="clearfix">
+    <app-cliente *ngIf = "cliente" class="img-cliente" [cliente]="cliente">
+    </app-cliente>
+    <app-campanha *ngIf = "campanha" class="campanha" [campanha]="campanha" [formGroup]="form.controls.campanha" >
+      <input id [(ngModel)]="campanha.campanha_id" name="campanha_id" formControlName="campanha_id" type="hidden">
+    </app-campanha>
+    <app-produto *ngIf = "produto" class="produto" [produto]="produto" [formGroup]="form.controls.produto">
+        <input id [(ngModel)]="produto.cliente_id" name="cliente_id" formControlName="cliente_id" type="hidden">
+    </app-produto>
+  </div>
+  <btn-voltar voltar></btn-voltar>
+  <btn-generico *ngIf = "!campanha" (click)="consultarAgencyBrief()">
+      <div text class="text">Consultar</div>
+  </btn-generico>
+
+
+  <btn-generico *ngIf = "campanha" avancar>
+      <div text class="text">Confirmar</div>
+  </btn-generico>
+  <btn-generico *ngIf = "campanha" (click)="trocarBrief()">
+    <div text class="text">Trocar Brief</div>
+  </btn-generico>
+  <btn-generico *ngIf = "campanha" btnModal>
+    <div text class="text">Visualizar Brief</div>
+  </btn-generico>
+
+</section>
+<section *ngIf = "agencyBriefCopy"  class="step animated clearfix hide">
+  <div class="cards">
+    <a routerLink="objetivo" >
+      <app-card-questao class="card" id="objetivo">
+          <h2  question for="objetivo">1 - Qual problema a comunicação deve resolver?</h2>
+          <textarea [(ngModel)]="reBrief.objetivo" input formControlName="objetivo" name="objetivo" type="text"></textarea>
+          <label label>Digite os objetivos</label>
+          <h1 success class="no-alteracao" *ngIf="!reBrief.objetivo !== agencyBriefCopy.objetivo">Não alterado</h1>
+          <h1 success class="success" *ngIf="reBrief.objetivo !== agencyBriefCopy.objetivo">Alterado</h1>
+      </app-card-questao>
+    </a>
+    <a routerLink="#publico_demografico">
+      <app-card-questoes class="card">
+          <h2 id="publico" question>2 - Com quem vamos falar?</h2>
+          <input input [(ngModel)]="reBrief.publico_demografico"  formControlName="publico_demografico" name="publico_demografico" type="text">
+          <label label>Digite o objetivo</label>
+          <input [(ngModel)]="reBrief.publico_perfil" input2 id="publico_perfil"  formControlName="publico_perfil" name="publico_perfil" type="text">
+          <label label2>Fale sobre o objetivo de visibilidade</label>
+          <input [(ngModel)]="reBrief.publico_comportamental" input3 id="publico_comportamental"  formControlName="publico_comportamental" name="publico_comportamental" type="text">
+          <label label3>Fale sobre o objetivo de engajamento</label>
+          
+          <h1 success class="no-alteracao" *ngIf="!reBrief.publico_demografico !== agencyBriefCopy.publico_demografico && !reBrief.publico_perfil !== agencyBriefCopy.publico_perfil && !reBrief.publico_comportamental !== agencyBriefCopy.publico_comportamental">Não alterado</h1>
+
+          <h1 success class="success" *ngIf="reBrief.publico_demografico !== agencyBriefCopy.publico_demografico || reBrief.publico_perfil !== agencyBriefCopy.publico_perfil || reBrief.publico_comportamental !== agencyBriefCopy.publico_comportamental">Alterado</h1>
+      </app-card-questoes>
+    </a>
+    <a routerLink="insight" >
+        <app-card-questao class="card" id="insight">
+            <h2  question for="insight">3 - Qual insight pode inspirar a comunicação?</h2>
+            <textarea [(ngModel)]="reBrief.insight" input formControlName="insight" name="insight" type="text"></textarea>
+            <label label>Digite os insights</label>
+            <h1 success class="no-alteracao" *ngIf="!reBrief.insight !== agencyBriefCopy.insight">Não alterado</h1>
+            <h1 success class="success" *ngIf="reBrief.insight !== agencyBriefCopy.insight">Alterado</h1>
+        </app-card-questao>
+    </a>
+    <a routerLink="#mensagem">
+        <app-card-questao class="card">
+                <h2 id="mensagem" question>4 - Qual a principal mensagem/território?</h2>
+                <textarea [(ngModel)]="reBrief.mensagem" input formControlName="mensagem" name="mensagem" type="text"></textarea>
+                <label label>Fale sobre a principal mensagem</label>
+                <h1 success class="no-alteracao" *ngIf="!reBrief.mensagem !== agencyBriefCopy.mensagem">Não alterado</h1>
+                <h1 success class="success" *ngIf="reBrief.mensagem !== agencyBriefCopy.mensagem">Alterado</h1>
+        </app-card-questao>
+    </a>
+    <a routerLink="#pilares">
+        <app-card-questao class="card">
+                <h2 id="pilares" question>5 - Por que acreditar nessa mensagem/pilares que sustentam o território?</h2>
+                <textarea [(ngModel)]="reBrief.pilares" input formControlName="pilares" name="pilares" type="text"></textarea>
+                <label label>Fale sobre os pilares</label>
+                <h1 success class="no-alteracao" *ngIf="!reBrief.pilares !== agencyBriefCopy.pilares">Não alterado</h1>
+                <h1 success class="success" *ngIf="reBrief.pilares !== agencyBriefCopy.pilares">Alterado</h1>
+        </app-card-questao>
+    </a>
+    <a routerLink="#entregaveis">
+        <app-card-questao id="entregaveis" class="card">
+                <h2 question>6 - O que é preciso criar?</h2>
+                <input input [(ngModel)]="reBrief.entregaveis" formControlName="entregaveis" name="entregaveis" type="text">
+                <label label>Fale sobre sobre os entregaveis</label>
+                <h1 success class="no-alteracao" *ngIf="!reBrief.entregaveis !== agencyBriefCopy.entregaveis">Não alterado</h1>
+                <h1 success class="success" *ngIf="reBrief.entregaveis !== agencyBriefCopy.entregaveis">Alterado</h1>
+        </app-card-questao>
+    </a>
+    <a routerLink="#informacoes">
+          <app-card-questao id="informacoes" class="card">
+                  <h2 question>7 - Informações Relevantes</h2>
+                  <input input [(ngModel)]="reBrief.informacoes" formControlName="informacoes" name="informacoes" type="text">
+                  <label label>Quais são as Informações extras</label>
+                  <h1 success class="no-alteracao" *ngIf="!reBrief.informacoes !== agencyBriefCopy.informacoes">Não alterado</h1>
+                  <h1 success class="success" *ngIf="reBrief.informacoes !== agencyBriefCopy.informacoes">Alterado</h1>
+          </app-card-questao>
+      </a>
+      <a routerLink="#mandatorio">
+          <app-card-questao id="mandatorio" class="card">
+                  <h2 question>8 - Mandatorio</h2>
+                  <input input [(ngModel)]="reBrief.mandatorio" formControlName="mandatorio" name="mandatorio" type="text">
+                  <label label>Fale sobre o mandatorio</label>
+                  <h1 success class="no-alteracao" *ngIf="!reBrief.mandatorio !== agencyBriefCopy.mandatorio">Não alterado</h1>
+                  <h1 success class="success" *ngIf="reBrief.mandatorio !== agencyBriefCopy.mandatorio">Alterado</h1>
+          </app-card-questao>
+      </a>
+  </div>
+  <btn-voltar voltar></btn-voltar>
+  <btn-submit></btn-submit>
+</section>
+</form>

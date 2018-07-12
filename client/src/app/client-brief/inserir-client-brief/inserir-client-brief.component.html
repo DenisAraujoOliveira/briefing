@@ -1,0 +1,101 @@
+<form [formGroup]="form" (submit)="gravar($event)" novalidate>
+<section class="step animated clearfix">
+    <h1 class="msgm" *ngIf ="form.controls.responsavel.valid">Bem vindo, <span>{{form.controls.responsavel.value}}</span></h1><br><br>
+    <div id="responsavel" class="group">
+        <input formControlName="responsavel" name="responsavel" type="text">
+        <!-- <legend *ngIf="30 - responsavel.value.length > 0">{{30 - responsavel.value.length}}</legend> -->
+        <div *ngIf = "form.controls['responsavel'].hasError('minlength') || form.controls['responsavel'].hasError('required')">
+        <legend>Insira um nome com ao menos 5 caracteres</legend>
+        </div> 
+        <div *ngIf = "form.controls['responsavel'].hasError('maxlength')">
+        <legend>Máximo de caracteres permitidos 30 caracteres</legend>
+        </div> 
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Digite o seu nome</label>
+    </div>
+    <btn-avancar *ngIf ="form.controls.responsavel.valid" avancar></btn-avancar>
+</section>
+<section *ngIf ="form.controls.responsavel.valid" class="step animated clearfix hide">
+    <app-clientes  class="clearfix" [cliente]="form.controls.cliente" (selecionouCliente)="setIdCliente($event)" ></app-clientes>
+    <btn-voltar voltar></btn-voltar>
+    <btn-avancar avancar></btn-avancar>
+</section>
+<section *ngIf ="form.controls.responsavel.valid" class="step animated clearfix hide">
+    <app-inserir-campanha [campanha]="form.controls.campanha">
+    
+    </app-inserir-campanha>
+    <app-inserir-produto [produto]="form.controls.produto">
+
+    </app-inserir-produto>
+    <btn-voltar voltar></btn-voltar>
+    <btn-avancar avancar></btn-avancar>
+</section>
+<section *ngIf ="form.controls.responsavel.valid" class="step animated clearfix hide">
+    <h1 class="msgm">Muito bem! Agora, responda as perguntas para gerar o briefing da <span>{{form.controls.cliente.controls.nome_cliente.value}}</span></h1>
+    <div class="cards">
+        <a routerLink="idquadro" >
+            <app-card-questao class="card" id="entregaveis">
+                <h2  question for="entregavel">1 - O que precisa ser feito?</h2>
+                <textarea  input formControlName="entregavel" name="entregavel" type="text"></textarea>
+                <label label>Digite os entregaveis</label>
+                <h1 success class="success" *ngIf="form.controls.entregavel.valid">Preenchido</h1>
+            </app-card-questao>
+        </a>
+        <a routerLink="#objetivo_vendas">
+            <app-card-questoes class="card">
+                <h2 id="objetivo_vendas" question>2 - Com qual objetivo?</h2>
+                <input input   formControlName="objetivo_vendas" name="objetivo_vendas" type="text">
+                <label label>Digite o objetivo</label>
+                <input input2 id="objetivo_visibilidade"  formControlName="objetivo_visibilidade" name="objetivo_visibilidade" type="text">
+                <label label2>Fale sobre o objetivo de visibilidade</label>
+                <input input3 id="objetivo_engajamento"  formControlName="objetivo_engajamento" name="objetivo_engajamento" type="text">
+                <label label3>Fale sobre o objetivo de engajamento</label>
+                <h1 success class="success" *ngIf="form.controls.objetivo_vendas.valid && form.controls.objetivo_visibilidade.valid && form.controls.objetivo_engajamento.valid ">Preenchido</h1>
+            </app-card-questoes>
+        </a>
+        <a routerLink="#kpis">
+            <app-card-questoes class="card">
+                <h2 id="kpis" question>3 - Quais KPI dessa ação/campanha?</h2>
+                <input input formControlName="kpi_vendas" name="kpi_vendas" type="text">
+                <label label>Estabeleça as KPIs de vendas</label>
+                <input input2 formControlName="kpi_visibilidade" name="kpi_visibilidade" type="text">
+                <label label2>Estabeleça as KPIs de visibilidade</label>
+                <input input3 formControlName="kpi_engajamento" name="kpi_engajamento" type="text">
+                <label label3>Estabeleça as KPIs de engajamento</label>
+                <h1 success class="success" *ngIf="form.controls.kpi_vendas.valid && form.controls.kpi_visibilidade.valid && form.controls.kpi_engajamento.valid ">Preenchido</h1>
+            </app-card-questoes>
+        </a>
+        <a routerLink="#promessa">
+            <app-card-questao class="card">
+                    <h2 id="promessa" question>4 - Qual a principal promessa do produto, serviço ou empresa?</h2>
+                    <textarea  input formControlName="promessa" name="promessa" type="text"></textarea>
+                    <label label>Fale sobre as promessas</label>
+                    <h1 success class="success" *ngIf="form.controls.promessa.valid">Preenchido</h1>
+            </app-card-questao>
+        </a>
+        <a routerLink="#publico">
+            <app-card-questao class="card">
+                    <h2 id="publico" question>5 - Com quem vamos falar?(Dados sócio-demográficos)?</h2>
+                    <textarea  input formControlName="publico" name="publico" type="text"></textarea>
+                    <label label>Fale sobre o target</label>
+                    <h1 success class="success" *ngIf="form.controls.publico.valid">Preenchido</h1>
+            </app-card-questao>
+        </a>
+        <a routerLink="#verba">
+            <app-card-questao id="verba" class="card">
+                    <h2 question>6 - Qual a verba de mídia e produção/ON e OFF?</h2>
+                    <input input formControlName="verba" name="verba" type="number">
+                    <label label>Fale sobre a verba disponivel</label>
+                    <h1 success class="success" *ngIf="form.controls.verba.valid">Preenchido</h1>
+            </app-card-questao>
+        </a>
+    </div>
+    <btn-voltar voltar></btn-voltar>
+    <btn-submit></btn-submit>
+</section>
+</form>
+
+<br class="clearfix">
+<br class="clearfix">
+<br class="clearfix">

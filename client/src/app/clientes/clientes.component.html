@@ -1,0 +1,12 @@
+<div class="clearfix" style="margin: 0px 0px 20px;">
+  <input #textoProcurado (keyup)="0"  placeholder="Filtrar cliente" type="text">
+  <span class="highlight"></span>
+  <span class="bar"></span>
+</div>
+<div *ngFor="let c of clientes | filtroClientes:textoProcurado.value" class="cliente" [formGroup]="cliente">
+  <ng-content id></ng-content>
+  <input type="hidden" [value]="c.id">
+  <input [value]="c.nome_cliente" class="check" type="radio" name="nome_cliente" formControlName="nome_cliente"  [(ngModel)]="cliente.nome_cliente" (click)="seleciona(c)">
+  <label class="label-check" for="{{c.nome_cliente}}"></label>
+  <app-cliente [cliente]="c"></app-cliente>
+</div>

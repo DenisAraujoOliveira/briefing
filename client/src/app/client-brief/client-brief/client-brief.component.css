@@ -1,0 +1,49 @@
+.fundo-brief{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0vh;
+    background: rgba(82, 86, 89, 0.5);
+    z-index: 10;
+}
+
+.info{
+    width: 55%;
+    height: 90vh;
+    background: #fff;
+    -webkit-transform: translate(-50%, -20%);
+    transform: translate(-50%, -9vh);
+    left: 50%;
+    position: absolute;
+    top: 10vh;
+    -webkit-box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.75);
+    box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.7);
+    padding: 3vh;
+    overflow-y: scroll;
+}
+
+h1{
+    color: #EE1A39;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.conteudo{
+    float: left;
+    text-align: left;
+    position: relative;
+    width: 100%;    
+}
+h2{
+    margin-bottom: 5px;
+    text-align: left;
+}
+.modal{
+    width: 98%;
+    border: 2px solid#ee1a39;
+    padding: 2% 1%;
+    margin: 0% 0 3%;
+}
+.modal p {
+    word-wrap: break-word;
+}
+

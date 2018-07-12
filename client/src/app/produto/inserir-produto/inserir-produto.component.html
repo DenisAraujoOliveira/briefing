@@ -1,0 +1,12 @@
+<div class="group" [formGroup]="produto">
+    <input  formControlName="nome" name="nome" type="text">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Digite o nome do produto</label>
+    <div *ngIf = "produto.controls['nome'].hasError('minlength') || produto.controls['nome'].hasError('required')">
+        <legend>Insira um nome com ao menos 5 caracteres</legend>
+    </div>
+    <div *ngIf = "produto.controls['nome'].hasError('maxlength')">
+        <legend>Máximo de caracteres permitidos 30 caracteres</legend>
+    </div>            
+</div>
